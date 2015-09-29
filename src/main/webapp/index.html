@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="serviceApp">
 <head>
-    <title>Service Station</title>
-    <meta charset=utf-8">
-
+    <meta charset="utf-8">
+    <title>Google Phone Gallery</title>
     <link rel="stylesheet" href="resources/libs/bootstrap.min.css">
-    <script src="resources/libs/bootstrap.min.js"></script>
     <script src="resources/libs/angular.min.js"></script>
+    <script src="resources/libs/angular-route.min.js"></script>
+    <script src="resources/index.js"></script>
+    <script src="resources/homepage/js/homeModule.js"></script>
+    <script src="resources/homepage/js/homeController.js"></script>
 </head>
-<body>
-<h1>Hi!!!</h1>
-<h2>Serv station demo</h2>
+<body ng-controller="serviceMainController">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--Sidebar content-->
+            <div ng-include="url"></div>
+            {{q12}}
+            Search: <input ng-model="query">
+            Sort by:
+            <select ng-model="orderProp">
+                <option value="name">Alphabetical</option>
+                <option value="age">Newest</option>
+            </select>
+        </div>
+        <div class="col-md-8">
+            <div ng-view></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
