@@ -1,0 +1,20 @@
+.inputDiv {
+    padding-bottom: 15px;
+}
+
+.getUserButton {
+    width: 100%;
+    text-align: center;
+    background-color: #2E729F;
+    color: white;
+}
+
+.getUserButton:focus{
+    background-color: #2E729F;
+    color: white;
+}
+
+.getUserButton:hover{
+    color: white;
+    background-color: #286090;
+}

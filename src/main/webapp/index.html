@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="serviceApp">
 <head>
+    <base href="serviceStation">
     <meta charset="utf-8">
     <title>Google Phone Gallery</title>
     <link rel="stylesheet" href="resources/libs/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/homepage/homestyle.css">
     <script src="resources/libs/angular.min.js"></script>
     <script src="resources/libs/angular-route.min.js"></script>
     <script src="resources/index.js"></script>
@@ -14,18 +16,13 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <!--Sidebar content-->
-            <div ng-include="url"></div>
-            {{q12}}
-            Search: <input ng-model="query">
-            Sort by:
-            <select ng-model="orderProp">
-                <option value="name">Alphabetical</option>
-                <option value="age">Newest</option>
-            </select>
-        </div>
-        <div class="col-md-8">
+        <!--<div class="col-md-2">-->
+            <!--{{q12}}-->
+            <!--Search: <input ng-model="query">-->
+            <!--Sort by:-->
+            <!--<input type="button" ng-click="fun1()" value="incriment">-->
+        <!--</div>-->
+        <div ng-cloak>
             <div ng-view></div>
         </div>
     </div>
