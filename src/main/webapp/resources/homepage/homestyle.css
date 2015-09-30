@@ -18,3 +18,18 @@
     color: white;
     background-color: #286090;
 }
+
+.createUserModalWindow{
+    padding-top: 100px;
+}
+
+.createUserModalInput{
+      padding-top: 5px;
+      padding-right: 25px;
+      padding-left: 25px;
+  }
+
+.createUserModalInputEnd{
+    text-align: left;
+    padding: 10px 25px;
+}

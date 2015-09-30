@@ -1,4 +1,4 @@
-var serviceApp = angular.module('serviceApp', ['ngRoute','homeModule']);
+var serviceApp = angular.module('serviceApp', ['ngRoute','ui.bootstrap','homeModule']);
 
 //serviceApp.config(['$locationProvider',function($locationProvider){
 //    $locationProvider.html5Mode(true);
@@ -7,9 +7,7 @@ var serviceApp = angular.module('serviceApp', ['ngRoute','homeModule']);
 
 
 serviceApp.controller('serviceMainController', ['$scope','$http','$location', function($scope,$http,$location) {
-    $scope.orderProp = 'age';
     $scope.url = 'resources/homepage/home.html';
-    $scope.query = 's ';
     $scope.count=0;
     $scope.fun1=function (){
         $http.get('login').then(function (data){

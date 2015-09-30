@@ -5,12 +5,16 @@ import dao.UserDaoImpl;
 import models.CarModel;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -42,6 +46,12 @@ public class HomeServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(users);
             out.flush();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String data = request.toString();
+        System.out.println(data);
     }
 
 }
