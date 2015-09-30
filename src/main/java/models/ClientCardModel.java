@@ -13,6 +13,18 @@ public class ClientCardModel {
     private String email;
     private String phone;
 
+    public ClientCardModel(){
+    }
+
+    public ClientCardModel(String firstName, String lastName, String birthDate, String address, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public String getFirstName() {
         return firstName;
     }
