@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  * Created by maksim on 30.09.2015.
  */
 
-@WebServlet("/login")
+@WebServlet("/rest/home")
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final String APPLICATION_JSON = "application/json";
@@ -29,6 +29,12 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            System.out.println("-----------------------------");
+            System.out.println(firstName);
+            System.out.println(lastName);
+            System.out.println("------------------------------");
             JSONObject jsonObject = new JSONObject();
             CarModel car1=new CarModel("volvo","s300",1997,"g5ht42d3");
             jsonObject.put("car", car1);

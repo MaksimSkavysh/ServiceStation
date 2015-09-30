@@ -7,6 +7,7 @@ angular.module('homeModule').controller('homeController', ['$scope', '$location'
     };
 
     $scope.registerNewUser=function(){
+
     };
 
     $scope.submit=function(){
