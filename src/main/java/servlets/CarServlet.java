@@ -50,4 +50,8 @@ public class CarServlet extends HttpServlet {
         db.addCar(car);
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
 }

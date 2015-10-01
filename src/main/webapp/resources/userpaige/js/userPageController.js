@@ -31,6 +31,10 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         });
     };
 
+    $scope.editCar=function(vin){
+        console.log(vin);
+    };
+
     getUserInfo().then(function (data,status,headers,config) {
         $scope.user=data.data.user;
         $scope.newCar.userId=$scope.user.id;
