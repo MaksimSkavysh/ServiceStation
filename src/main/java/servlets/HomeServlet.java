@@ -1,20 +1,15 @@
-package servelets;
+package servlets;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
-import models.CarModel;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -25,8 +20,6 @@ import java.io.PrintWriter;
 @WebServlet("/rest/home")
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    public static final String APPLICATION_JSON = "application/json";
-    public static final String UTF_8 = "UTF-8";
     private UserDao userDao;
 
     @Override
@@ -41,8 +34,8 @@ public class HomeServlet extends HttpServlet {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("users", userDao.getUsers(firstName,lastName));
             String users = jsonObject.toJSONString();
-            response.setCharacterEncoding(UTF_8);
-            response.setContentType(APPLICATION_JSON);
+            response.setCharacterEncoding(ServletUtil.UTF_8);
+            response.setContentType(ServletUtil.APPLICATION_JSON);
             PrintWriter out = response.getWriter();
             out.print(users);
             out.flush();
@@ -50,8 +43,10 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String data = request.toString();
-        System.out.println(data);
+        String json = ServletUtil.getMessageBody(request);
+        ClientCardModel user=userDao.jsonToUser(json);
+        //TODO: adding to database
+        System.out.println(user.toString());
     }
 
 }

@@ -6,6 +6,13 @@ import java.lang.IllegalArgumentException;
  */
 public class ClientCardModel {
 
+    public final static String FIRSTNAME="firstName";
+    public final static String LASTNAME="lastName";
+    public final static String BIRTHDATE="birthDate";
+    public final static String ADDRESS="address";
+    public final static String EMAIL="email";
+    public final static String PHONE="phone";
+
     private String firstName;
     private String lastName;
     private String birthDate;
@@ -105,11 +112,11 @@ public class ClientCardModel {
 
     @Override
     public String toString() {
-        return "{\"firstName\":\"" + this.firstName
-                + "\",\"lastName\":\"" + this.lastName
-                + "\",\"birthDate\":\"" + this.birthDate
-                + "\",\"address\":\"" + this.address
-                + "\",\"email\":\"" + this.email
-                + "\",\"phone\":\"" + this.phone + "\"}";
+        return "{\""+FIRSTNAME+"\":\"" + this.firstName
+                + "\",\""+LASTNAME+"\":\"" + this.lastName
+                + "\",\""+BIRTHDATE+"\":\"" + this.birthDate
+                + "\",\""+ADDRESS+"\":\"" + this.address
+                + "\",\""+EMAIL+"\":\"" + this.email
+                + "\",\""+PHONE+"\":\"" + this.phone + "\"}";
     }
 }
