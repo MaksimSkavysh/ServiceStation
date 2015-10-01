@@ -12,8 +12,8 @@ angular.module('homeModule').controller('createUserModalController',['$scope','$
     };
     $scope.submit=function(){
         //TODO: add redirect to user paige
-        homeHttpService.addNewUser($scope.user).then(function(data){
-
+        homeHttpService.addNewUser($scope.user).then(function(){
+            $modalInstance.close();
         },function(error){
             $modalInstance.dismiss(error);
         });

@@ -2,6 +2,8 @@ package servlets;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
+import db.dbManager;
+import models.CarModel;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
 
@@ -14,27 +16,38 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by maksim on 01.10.2015.
+ * Created by maksim on 02.10.2015.
  */
-@WebServlet("/rest/userPaige")
-public class UserServlet extends HttpServlet {
+
+@WebServlet("/rest/Cars")
+public class CarServlet extends HttpServlet {
     private UserDao userDao;
+    private dbManager db;
 
     @Override
     public void init() throws ServletException {
         this.userDao=new UserDaoImpl();
+        this.db=new dbManager();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("user",userDao.getUser(id));
-        String users = jsonObject.toJSONString();
+        jsonObject.put("cars",userDao.getUserCars(id));
+        String cars = jsonObject.toJSONString();
         response.setCharacterEncoding(ServletUtil.UTF_8);
         response.setContentType(ServletUtil.APPLICATION_JSON);
         PrintWriter out = response.getWriter();
-        out.print(users);
+        out.print(cars);
         out.flush();
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String json = ServletUtil.getMessageBody(request);
+        CarModel car=userDao.jsonToCar(json);
+        db.addCar(car);
+    }
+
 }

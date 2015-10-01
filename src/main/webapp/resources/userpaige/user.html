@@ -1,2 +1,70 @@
-<h1>user paige2</h1>
-{{user}}
+<h1 class="text-center reportsTitle">Personal page</h1>
+<div class="col-md-3 col-md-offset-1">
+    <h2 class="text-center reportsTitle">User</h2>
+    <div >
+        <!--<label>First name: </label>{{user.firstName}}-->
+        <table class="table">
+            <!--class="list-group-item"-->
+            <tbody>
+                <tr >
+                    <td>First name: </td>
+                    <td>{{user.firstName}}</td>
+                </tr>
+                <tr >
+                    <td>Last name: </td>
+                    <td>{{user.lastName}}</td>
+                </tr>
+                <tr >
+                    <td>Phone: </td>
+                    <td>{{user.phone}}</td>
+                </tr>
+                <tr >
+                    <td>Email: </td>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr >
+                    <td>Addres: </td>
+                    <td>{{user.address}}</td>
+                </tr>
+            <tr>
+                <td colspan="2"><input type="button" class="form-control btn-default" value="Edit user info"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-7">
+    <h2 class="text-center reportsTitle">User cars</h2>
+    <div class="list-group">
+    <form name="createNewCar" role="form" ng-submit="addNewCar()">
+        <table class="table  list-group-item">
+            <thead>
+            <tr class="">
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>VIN</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="tableHover" ng-repeat="car in cars track by $index">
+                <td class="tableAlignMiddle"><a href="">{{car.make}}</a></td>
+                <td class="tableAlignMiddle">{{car.model}}</td>
+                <td class="tableAlignMiddle">{{car.year}}</td>
+                <td class="tableAlignMiddle">{{car.vin}}</td>
+                <td class="tableAlignMiddle"><input type="button" class="form-control btn-default" value="Edit"></td>
+            </tr>
+            <tr >
+                    <td><input type="text" class="form-control" placeholder="Make" ng-model="newCar.make" required></td>
+                    <td><input type="text" class="form-control" placeholder="Model" ng-model="newCar.model" required></td>
+                    <td><input type="text" class="form-control" placeholder="Year" ng-model="newCar.year" required></td>
+                    <td><input type="text" class="form-control" placeholder="VIN" ng-model="newCar.vin" required></td>
+                    <td><input type="submit" class="form-control btn-default" value="Add new car"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+</div>

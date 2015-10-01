@@ -20,7 +20,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/rest/home")
 public class HomeServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
     private UserDao userDao;
     private dbManager db;
 

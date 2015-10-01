@@ -1,5 +1,6 @@
 package db;
 
+import models.CarModel;
 import models.ClientCardModel;
 
 import java.sql.*;
@@ -21,6 +22,10 @@ public class dbManager {
     private static final String EMAIL = "EMAIL";
     private static final String BIRTHDAY = "BIRTHDAY";
     private static final String ADDRESS = "ADDRESS";
+    private static final String MAKE = "MAKE";
+    private static final String MODEL = "MODEL";
+    private static final String YEAR = "YEAR";
+    private static final String VIN = "VIN";
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -90,6 +95,35 @@ public class dbManager {
         }
     }
 
+    public void addCar(CarModel car) {
+        //INSERT INTO `service_station`.`cars` (`VIN`, `MAKE`, `MODEL`, `YEAR`, `USER_ID`) VALUES ('as223f4434wzfg', 'lada', 'kalina', '2000', '3');
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO CARS (VIN, MAKE, MODEL, YEAR, USER_ID) VALUES (?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, car.getVin());
+            preparedStatement.setString(2, car.getMake());
+            preparedStatement.setString(3, car.getModel());
+            preparedStatement.setInt(4, car.getYear());
+            preparedStatement.setInt(5, car.getUserID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public List<ClientCardModel> getUsersByFIO(String firstName, String lastName){
         List<ClientCardModel> users=new ArrayList<>();
         //SELECT *  FROM service_station.users WHERE (FIRSTNAME ="vasya") AND (LASTNAME ="petrov") ;
@@ -99,7 +133,7 @@ public class dbManager {
         try {
             connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement("SELECT *  FROM USERS WHERE (FIRSTNAME =?) AND (LASTNAME =?)");
-            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(1, firstName);
             preparedStatement.setString(2,lastName);
             ResultSet userResultSet=preparedStatement.executeQuery();
             while(userResultSet.next()){
@@ -128,5 +162,77 @@ public class dbManager {
             }
         }
         return users;
+    }
+
+    public ClientCardModel getUserById(String id){
+        //SELECT *  FROM service_station.users WHERE USER_ID=3
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ClientCardModel user=new ClientCardModel();
+        try {
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT *  FROM USERS WHERE USER_ID=?");
+            preparedStatement.setString(1, id);
+            ResultSet userResultSet=preparedStatement.executeQuery();
+            userResultSet.next();
+            user.setId(userResultSet.getString(USER_ID));
+            user.setFirstName(userResultSet.getString(FIRSTNAME));
+            user.setLastName(userResultSet.getString(LASTNAME));
+            user.setPhone(userResultSet.getString(PHONE));
+            user.setEmail(userResultSet.getString(EMAIL));
+            user.setBirthDate(userResultSet.getString(BIRTHDAY));
+            user.setAddress(userResultSet.getString(ADDRESS));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
+
+    public List<CarModel> getUserCars(String userId){
+        List<CarModel> cars=new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        CarModel car=null;
+        try {
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM CARS WHERE USER_ID=?;");
+            preparedStatement.setString(1, userId);
+            ResultSet userResultSet=preparedStatement.executeQuery();
+            while(userResultSet.next()){
+                car=new CarModel();
+                car.setMake(userResultSet.getString(MAKE));
+                car.setModel(userResultSet.getString(MODEL));
+                car.setYear(userResultSet.getInt(YEAR));
+                car.setVin(userResultSet.getString(VIN));
+                car.setUserID(userResultSet.getInt(USER_ID));
+                cars.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return cars;
     }
 }

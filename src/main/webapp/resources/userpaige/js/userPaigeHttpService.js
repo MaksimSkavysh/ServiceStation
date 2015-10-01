@@ -7,5 +7,13 @@ angular.module('userPageModule').factory('userPageHttpService',['$http',function
         return $http.get('rest/userPaige?id='+id);
     };
 
+    services.getUserCars=function(id){
+        return $http.get('rest/Cars?id='+id);
+    };
+
+    services.addNewCar=function(newCar){
+      return $http.post('rest/Cars',newCar)
+    };
+
     return services;
 }]);

@@ -5,14 +5,40 @@
 //    //getUserInfo();
 //}]);
 var userPageModule = angular.module('userPageModule');
-userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo', function ($scope, $location, getUserInfo) {
+userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService', function ($scope, $location, getUserInfo,userPageHttpService) {
 
+    $scope.newCar={
+        make:'',
+        model:'',
+        year:'',
+        vin:'',
+        userId:''
+    };
 
+    $scope.addNewCar=function(){
+        userPageHttpService.addNewCar($scope.newCar).then(function(){
+            userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
+                $scope.cars=data.data.cars;
+                $scope.newCar.make='';
+                $scope.newCar.model='';
+                $scope.newCar.year='';
+                $scope.newCar.vin='';
+            },function(error){
+                console.error(error);
+            });
+        },function(error){
+            console.error(error);
+        });
+    };
 
     getUserInfo().then(function (data,status,headers,config) {
-        console.log("data:");
         $scope.user=data.data.user;
-        console.log(data);
+        $scope.newCar.userId=$scope.user.id;
+        userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
+            $scope.cars=data.data.cars;
+        },function(error){
+            console.error(error);
+        });
     }, function (error) {
         console.error(error);
     });

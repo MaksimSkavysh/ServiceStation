@@ -1,0 +1,10 @@
+.tableHover:hover{
+    background-color:whitesmoke  !important;
+    cursor: pointer;
+    /*azure*/
+}
+
+.tableAlignMiddle{
+    vertical-align: middle !important;
+}
+

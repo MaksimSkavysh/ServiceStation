@@ -4,17 +4,19 @@ package models;
  * Created by maksim on 30.09.2015.
  */
 public class CarModel {
+    public final static String MAKE="make";
+    public final static String MODEL="model";
+    public final static String YEAR="year";
+    public final static String VIN="vin";
+    public final static String USERID="userId";
+
     private String make;
     private String model;
     private int year;
     private String vin;
+    private int userID;
 
-    public CarModel(String make,String model,int year,String vin){
-        this.make=make;
-        this.model=model;
-        this.year=year;
-        this.vin=vin;
-    }
+    public CarModel(){}
 
     public String getMake() {
         return make;
@@ -68,11 +70,20 @@ public class CarModel {
         }
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     @Override
     public String toString() {
-        return "{\"make\":\"" + this.make
-                + "\",\"model\":\"" + this.model
-                + "\",\"year\":\"" + this.year
-                + "\",\"vin\":\"" + this.vin + "\"}";
+        return "{\""+MAKE+"\":\"" + this.make
+                + "\",\""+MODEL+"\":\"" + this.model
+                + "\",\""+YEAR+"\":\"" + this.year
+                + "\",\""+USERID+"\":\"" + this.userID
+                + "\",\""+VIN+"\":\"" + this.vin + "\"}";
     }
 }

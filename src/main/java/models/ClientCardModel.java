@@ -127,7 +127,6 @@ public class ClientCardModel {
     }
 
     public void setId(String id) {
-        //TODO: normal id
         this.id = id;
     }
 
