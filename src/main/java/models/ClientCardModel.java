@@ -12,6 +12,7 @@ public class ClientCardModel {
     public final static String ADDRESS="address";
     public final static String EMAIL="email";
     public final static String PHONE="phone";
+    public final static String ID="id";
 
     private String firstName;
     private String lastName;
@@ -19,8 +20,19 @@ public class ClientCardModel {
     private String address;
     private String email;
     private String phone;
+    private String id;
 
     public ClientCardModel(){
+    }
+
+    public ClientCardModel(String firstName, String lastName, String birthDate, String address, String email, String phone, String id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.id = id;
     }
 
     public ClientCardModel(String firstName, String lastName, String birthDate, String address, String email, String phone) {
@@ -110,6 +122,15 @@ public class ClientCardModel {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        //TODO: normal id
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "{\""+FIRSTNAME+"\":\"" + this.firstName
@@ -117,6 +138,7 @@ public class ClientCardModel {
                 + "\",\""+BIRTHDATE+"\":\"" + this.birthDate
                 + "\",\""+ADDRESS+"\":\"" + this.address
                 + "\",\""+EMAIL+"\":\"" + this.email
-                + "\",\""+PHONE+"\":\"" + this.phone + "\"}";
+                + "\",\""+PHONE+"\":\"" + this.phone
+                + "\",\""+ID+"\":\"" + this.id + "\"}";
     }
 }

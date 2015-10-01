@@ -1,5 +1,4 @@
 angular.module('homeModule').controller('homeController', ['$scope', '$location','homeHttpService','$modal', function ($scope, $location,homeHttpService,$modal) {
-    $scope.location = $location;
 
     $scope.searchData={
         firstName:'',
@@ -7,6 +6,11 @@ angular.module('homeModule').controller('homeController', ['$scope', '$location'
     };
 
     $scope.users=null;
+
+    $scope.redirect=function(id){
+        console.log('id: '+id);
+        $location.url('/user/'+id);
+    };
 
     $scope.registerNewUser=function(){
         var modalInstance = $modal.open({

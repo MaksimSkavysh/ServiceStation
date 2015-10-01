@@ -43,4 +43,29 @@
         </div>
     </div>
 </form>
-{{users}}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table table-striped" ng-show="users!==null&&users.length>0">
+            <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users track by $index">
+                <td ng-click="redirect(user.id)"><a href="">{{user.firstName}}</a></td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.address}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3 class="text-center reportsTitle" ng-show="users!==null&&users.length===0">Uuups, users not found</h3>
+        {{users}}
+    </div>
+</div>
