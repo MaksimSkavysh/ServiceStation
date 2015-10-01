@@ -2,6 +2,7 @@ package servlets;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
+import db.dbManager;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
 
@@ -21,10 +22,12 @@ import java.io.PrintWriter;
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
+    private dbManager db;
 
     @Override
     public void init() throws ServletException {
         this.userDao=new UserDaoImpl();
+        this.db=new dbManager();
     }
 
     @Override
@@ -45,7 +48,7 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String json = ServletUtil.getMessageBody(request);
         ClientCardModel user=userDao.jsonToUser(json);
-        //TODO: adding to database
+        db.addUser(user);
         System.out.println(user.toString());
     }
 
