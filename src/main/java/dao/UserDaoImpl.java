@@ -1,5 +1,6 @@
 package dao;
 
+import db.dbManager;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,10 +27,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<ClientCardModel> getUsers(String firstName, String lastName) {
-        List<ClientCardModel> users=new ArrayList<>();
-        users.add(new ClientCardModel("vasya","sidorov","30.06.1995","minsk","vas@gmail.com","+375291186106","1"));
-        users.add(new ClientCardModel("1vasya","1sidorov","31.06.1995","1minsk","1vas@gmail.com","+175291186106","2"));
-        users.add(new ClientCardModel("2vasya","2sidorov","32.06.1995","2minsk","2vas@gmail.com","+275291186106","3"));
+        dbManager db=new dbManager();
+        List<ClientCardModel> users=db.getUsersByFIO(firstName, lastName);
         return users;
     }
 

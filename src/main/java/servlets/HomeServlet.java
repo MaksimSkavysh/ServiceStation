@@ -35,8 +35,8 @@ public class HomeServlet extends HttpServlet {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("users", userDao.getUsers(firstName,lastName));
-            String users = jsonObject.toJSONString();
+            jsonObject.put("users",userDao.getUsers(firstName, lastName));
+        String users = jsonObject.toJSONString();
             response.setCharacterEncoding(ServletUtil.UTF_8);
             response.setContentType(ServletUtil.APPLICATION_JSON);
             PrintWriter out = response.getWriter();
