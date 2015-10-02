@@ -5,48 +5,48 @@
 //    //getUserInfo();
 //}]);
 var userPageModule = angular.module('userPageModule');
-userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService','$modal','openConfirmModal', function ($scope, $location, getUserInfo,userPageHttpService,$modal,openConfirmModal) {
+userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo', 'userPageHttpService', '$modal', 'openConfirmModal', function ($scope, $location, getUserInfo, userPageHttpService, $modal, openConfirmModal) {
 
-    $scope.newCar={
-        make:'',
-        model:'',
-        year:'',
-        vin:'',
-        userId:''
+    $scope.newCar = {
+        make: '',
+        model: '',
+        year: '',
+        vin: '',
+        userId: ''
     };
 
-    $scope.addNewCar=function(){
-        userPageHttpService.addNewCar($scope.newCar).then(function(){
-            userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
-                $scope.cars=data.data.cars;
-                $scope.newCar.make='';
-                $scope.newCar.model='';
-                $scope.newCar.year='';
-                $scope.newCar.vin='';
-            },function(error){
+    $scope.addNewCar = function () {
+        userPageHttpService.addNewCar($scope.newCar).then(function () {
+            userPageHttpService.getUserCars($scope.user.id).then(function (data, status, headers, config) {
+                $scope.cars = data.data.cars;
+                $scope.newCar.make = '';
+                $scope.newCar.model = '';
+                $scope.newCar.year = '';
+                $scope.newCar.vin = '';
+            }, function (error) {
                 console.error(error);
             });
-        },function(error){
+        }, function (error) {
             console.error(error);
         });
     };
 
-    $scope.editCar=function(car){
+    $scope.editCar = function (car) {
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'resources/userpaige/editCarModal.html',
             controller: 'userPageModalController',
-            windowClass:'createUserModalWindow',
+            windowClass: 'createUserModalWindow',
             resolve: {
                 currentModalData: function () {
-                    return  angular.copy(car)
+                    return angular.copy(car)
                 }
             }
         });
         modalInstance.result.then(function () {
-            userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
-                $scope.cars=data.data.cars;
-            },function(error){
+            userPageHttpService.getUserCars($scope.user.id).then(function (data, status, headers, config) {
+                $scope.cars = data.data.cars;
+            }, function (error) {
                 console.error(error);
             });
         }, function (error) {
@@ -54,22 +54,22 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         });
     };
 
-    $scope.editUser=function(){
+    $scope.editUser = function () {
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'resources/userpaige/editUserModal.html',
             controller: 'userPageModalController',
-            windowClass:'createUserModalWindow',
+            windowClass: 'createUserModalWindow',
             resolve: {
                 currentModalData: function () {
-                    return  angular.copy($scope.user)
+                    return angular.copy($scope.user)
                 }
             }
         });
         modalInstance.result.then(function () {
-            userPageHttpService.getUser($scope.user.id).then(function (data,status,headers,config) {
-                $scope.user=data.data.user;
-            }, function(error){
+            userPageHttpService.getUser($scope.user.id).then(function (data, status, headers, config) {
+                $scope.user = data.data.user;
+            }, function (error) {
                 console.error(error)
             });
         }, function (error) {
@@ -77,50 +77,50 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         });
     };
 
-    $scope.deleteCar=function(car){
+    $scope.deleteCar = function (car) {
         console.log(car);
-        openConfirmModal("Delete car?").then(function(){
-            userPageHttpService.deleteCar(car.vin).then(function(){
-                userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
-                    $scope.cars=data.data.cars;
-                },function(error){
+        openConfirmModal("Delete car?").then(function () {
+            userPageHttpService.deleteCar(car.vin).then(function () {
+                userPageHttpService.getUserCars($scope.user.id).then(function (data, status, headers, config) {
+                    $scope.cars = data.data.cars;
+                }, function (error) {
                     console.error(error);
                 });
-            },function(error){
+            }, function (error) {
                 console.error(error);
-                if(error.status===409){
+                if (error.status === 409) {
                     alert("this car has orders")
                 }
             });
-        },function(error){
+        }, function (error) {
             console.log(error);
         });
     };
 
-    $scope.clearInputs=function(){
-        $scope.newCar.make='';
-        $scope.newCar.model='';
-        $scope.newCar.year='';
-        $scope.newCar.vin='';
+    $scope.clearInputs = function () {
+        $scope.newCar.make = '';
+        $scope.newCar.model = '';
+        $scope.newCar.year = '';
+        $scope.newCar.vin = '';
     };
 
-    $scope.openOrdersModal=function(car){
+    $scope.openOrdersModal = function (car) {
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'resources/userpaige/ordersModal.html',
             controller: 'userPageModalController',
-            windowClass:'createUserModalWindow',
-            size:'lg',
+            windowClass: 'createUserModalWindow',
+            size: 'lg',
             resolve: {
                 currentModalData: function () {
-                    return  angular.copy(car)
+                    return angular.copy(car)
                 }
             }
         });
         modalInstance.result.then(function () {
-            userPageHttpService.getUser($scope.user.id).then(function (data,status,headers,config) {
+            userPageHttpService.getUser($scope.user.id).then(function (data, status, headers, config) {
 
-            }, function(error){
+            }, function (error) {
                 console.error(error)
             });
         }, function (error) {
@@ -128,12 +128,12 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         });
     };
 
-    getUserInfo().then(function (data,status,headers,config) {
-        $scope.user=data.data.user;
-        $scope.newCar.userId=$scope.user.id;
-        userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
-            $scope.cars=data.data.cars;
-        },function(error){
+    getUserInfo().then(function (data, status, headers, config) {
+        $scope.user = data.data.user;
+        $scope.newCar.userId = $scope.user.id;
+        userPageHttpService.getUserCars($scope.user.id).then(function (data, status, headers, config) {
+            $scope.cars = data.data.cars;
+        }, function (error) {
             console.error(error);
         });
     }, function (error) {
