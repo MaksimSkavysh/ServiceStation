@@ -80,7 +80,18 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
     $scope.deleteCar=function(car){
         console.log(car);
         openConfirmModal("Delete car?").then(function(){
-
+            userPageHttpService.deleteCar(car.vin).then(function(){
+                userPageHttpService.getUserCars($scope.user.id).then(function(data,status,headers,config){
+                    $scope.cars=data.data.cars;
+                },function(error){
+                    console.error(error);
+                });
+            },function(error){
+                console.error(error);
+                if(error.status===409){
+                    alert("this car has orders")
+                }
+            });
         },function(error){
             console.log(error);
         });

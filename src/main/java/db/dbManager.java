@@ -183,6 +183,13 @@ public class dbManager {
         }
     }
 
+    public void deleteCar(String vin) throws SQLException {
+        Connection connection = dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM CARS WHERE VIN=?");
+        preparedStatement.setString(1, vin);
+        preparedStatement.executeUpdate();
+    }
+
     public List<ClientCardModel> getUsersByFIO(String firstName, String lastName){
         List<ClientCardModel> users=new ArrayList<>();
         //SELECT *  FROM service_station.users WHERE (FIRSTNAME ="vasya") AND (LASTNAME ="petrov") ;
@@ -193,7 +200,7 @@ public class dbManager {
             connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement("SELECT *  FROM USERS WHERE (FIRSTNAME =?) AND (LASTNAME =?)");
             preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2,lastName);
+            preparedStatement.setString(2, lastName);
             ResultSet userResultSet=preparedStatement.executeQuery();
             while(userResultSet.next()){
                 user=new ClientCardModel();

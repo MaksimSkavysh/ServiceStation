@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
  * Created by maksim on 02.10.2015.
@@ -59,6 +60,17 @@ public class CarServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String vin = request.getParameter("vin");
+            db.deleteCar(vin);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_CONFLICT);
         }
     }
 }
