@@ -8,3 +8,25 @@
     vertical-align: middle !important;
 }
 
+.glyphRemove{
+    font-size: 17px;
+    border-radius: 5px;
+    width:30px;
+    height: 30px;
+    text-align: center;
+    background-color: whitesmoke;
+    color: #a94442;
+}
+
+.glyphRemove:hover{
+    background-color: #f2dede;
+    color: red;
+}
+
+.glyphRemove span{
+    vertical-align: bottom;
+}
+
+.confirmAcceptButton{
+    float: right;
+}

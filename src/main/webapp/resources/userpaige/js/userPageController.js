@@ -5,7 +5,7 @@
 //    //getUserInfo();
 //}]);
 var userPageModule = angular.module('userPageModule');
-userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService','$modal', function ($scope, $location, getUserInfo,userPageHttpService,$modal) {
+userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService','$modal','openConfirmModal', function ($scope, $location, getUserInfo,userPageHttpService,$modal,openConfirmModal) {
 
     $scope.newCar={
         make:'',
@@ -69,6 +69,46 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         modalInstance.result.then(function () {
             userPageHttpService.getUser($scope.user.id).then(function (data,status,headers,config) {
                 $scope.user=data.data.user;
+            }, function(error){
+                console.error(error)
+            });
+        }, function (error) {
+            console.error(error);
+        });
+    };
+
+    $scope.deleteCar=function(car){
+        console.log(car);
+        openConfirmModal("Delete car?").then(function(){
+
+        },function(error){
+            console.log(error);
+        });
+    };
+
+    $scope.clearInputs=function(){
+        $scope.newCar.make='';
+        $scope.newCar.model='';
+        $scope.newCar.year='';
+        $scope.newCar.vin='';
+    };
+
+    $scope.openOrdersModal=function(car){
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'resources/userpaige/ordersModal.html',
+            controller: 'userPageModalController',
+            windowClass:'createUserModalWindow',
+            size:'lg',
+            resolve: {
+                currentModalData: function () {
+                    return  angular.copy(car)
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            userPageHttpService.getUser($scope.user.id).then(function (data,status,headers,config) {
+
             }, function(error){
                 console.error(error)
             });

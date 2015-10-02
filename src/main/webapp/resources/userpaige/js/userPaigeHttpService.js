@@ -24,5 +24,9 @@ angular.module('userPageModule').factory('userPageHttpService',['$http',function
         return $http.put('rest/Cars',car);
     };
 
+    services.deleteCar=function(vin){
+        return $http.delete('rest/Cars?vin='+vin);
+    };
+
     return services;
 }]);

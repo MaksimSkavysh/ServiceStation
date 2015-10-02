@@ -1,4 +1,4 @@
-<h2 class="text-center reportsTitle">{{user.firstName}} {{user.lastName}} page</h2>
+<!--<h2 class="text-center reportsTitle">{{user.firstName}} {{user.lastName}} page</h2>-->
 <div class="col-md-3 col-md-offset-1">
     <h3 class="text-center reportsTitle">User</h3>
     <div >
@@ -45,23 +45,28 @@
                 <th>Year</th>
                 <th>VIN</th>
                 <th>Action</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr class="tableHover" ng-repeat="car in cars track by $index">
-                <td class="tableAlignMiddle"><a href="">{{car.make}}</a></td>
-                <td class="tableAlignMiddle">{{car.model}}</td>
-                <td class="tableAlignMiddle">{{car.year}}</td>
-                <td class="tableAlignMiddle">{{car.vin}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.make}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.model}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.year}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.vin}}</td>
                 <td class="tableAlignMiddle"><input type="button" class="form-control btn-default" ng-click="editCar(car)" value="Edit"></td>
+                <td class="tableAlignMiddle"><div class="glyphRemove"><span
+                        class="glyphicon glyphicon-remove"
+                        aria-hidden="true"
+                        ng-click="deleteCar(car)"></span></div></td>
             </tr>
             <tr >
                     <td><input type="text" class="form-control" placeholder="Make" ng-model="newCar.make" required></td>
                     <td><input type="text" class="form-control" placeholder="Model" ng-model="newCar.model" required></td>
                     <td><input type="text" class="form-control" placeholder="Year" ng-model="newCar.year" required></td>
                     <td><input type="text" class="form-control" placeholder="VIN" ng-model="newCar.vin" required></td>
-                    <td><input type="submit" class="form-control btn-default" value="Add new car"></td>
-
+                    <td colspan="2"><input type="submit" class="form-control btn-default" value="Add new car"></td>
+                    <!--<td><input type="button" class="form-control btn-danger" ng-click="clearInputs()" value="Clear inputs"></td>-->
             </tr>
             </tbody>
         </table>
