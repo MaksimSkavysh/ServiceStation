@@ -32,6 +32,10 @@ angular.module('userPageModule').factory('userPageHttpService', ['$http', functi
         return $http.put('rest/Cars', car);
     };
 
+    services.saveEditedOrder = function (order) {
+        return $http.put('rest/orders', order);
+    };
+
     services.deleteCar = function (vin) {
         return $http.delete('rest/Cars?vin=' + vin);
     };

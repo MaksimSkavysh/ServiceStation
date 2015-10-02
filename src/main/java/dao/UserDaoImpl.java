@@ -51,9 +51,23 @@ public class UserDaoImpl implements UserDao {
         car.setMake((String) json.get(CarModel.MAKE));
         car.setVin((String) json.get(CarModel.VIN));
         car.setYear(Integer.parseInt((String) json.get(CarModel.YEAR)));
-        car.setUserID(Integer.parseInt((String)json.get(CarModel.USERID)));
+        car.setUserID(Integer.parseInt((String) json.get(CarModel.USERID)));
         String oldVin=((String) json.get(CarModel.OLDVIN));
-        db.editCar(car,oldVin);
+        db.editCar(car, oldVin);
+    }
+
+    @Override
+    public void editOrder(String jsonStr) throws ParseException, SQLException {
+        dbManager db=new dbManager();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonStr.trim());
+        OrderModel order=new OrderModel();
+        order.setDate((String) json.get(OrderModel.DATE));
+        order.setVin((String) json.get(OrderModel.VIN));
+        order.setStatus((String) json.get(OrderModel.STATUS));
+        order.setAmount(Integer.parseInt((String) json.get(OrderModel.AMOUNT)));
+        order.setOrderId(Integer.parseInt((String) json.get(OrderModel.ORDERID)));
+        db.editOrder(order);
     }
 
     @Override

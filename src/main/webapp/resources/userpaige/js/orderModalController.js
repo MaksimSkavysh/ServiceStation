@@ -6,12 +6,49 @@ userPageModule.controller('orderModalController', ['$scope', '$modalInstance', '
 
     $scope.orders = currentModalData.orders;
     $scope.vin=currentModalData.vin;
-
+    $scope.collapse='';
     $scope.newOrder={
         status: 'completed',
         date: '',
         amount: '',
         vin: ''
+    };
+    $scope.editedOrder={
+        status: 'completed',
+        date: '',
+        amount: '',
+        vin: '',
+        orderId:''
+    };
+
+    $scope.editOrder=function(order){
+        $scope.collapse=order.orderId;
+        $scope.editedOrder.status=order.status;
+        $scope.editedOrder.date=order.date;
+        $scope.editedOrder.amount=order.amount;
+        $scope.editedOrder.vin=$scope.vin;
+        $scope.editedOrder.orderId=order.orderId;
+        console.log($scope.editedOrder);
+    };
+
+    $scope.saveEditedChanges=function(order){
+        console.log($scope.editedOrder);
+        userPageHttpService.saveEditedOrder($scope.editedOrder).then(function(){
+            userPageHttpService.getCarOrders($scope.vin).then(function(data, status, headers, config){
+                $scope.orders=data.data.orders;
+            }, function( error ){
+                console.log(error)
+            });
+        },function(error){
+            console.error(error)
+        });
+
+        $scope.collapse='';
+        //$scope.editedOrder.status='completed';
+        //$scope.editedOrder.date='';
+        //$scope.editedOrder.amount='';
+        //$scope.editedOrder.vin='';
+        //$scope.editedOrder.orderId='';
     };
 
     $scope.addNewOrder=function(){

@@ -12,12 +12,12 @@
             </thead>
             <tbody>
             <tr class="tableHover" ng-repeat="order in orders track by $index">
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.date}}</td>
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.amount}}</td>
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.status}}</td>
-                <td class="tableAlignMiddle"><input type="button" class="form-control btn-default"
-                                                    ng-click="editCar(car)" value="Edit"></td>
-                <td class="tableAlignMiddle">
+                <td ng-show="collapse!==order.orderId" class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.date}}</td>
+                <td ng-show="collapse!==order.orderId" class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.amount}}</td>
+                <td ng-show="collapse!==order.orderId" class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.status}}</td>
+                <td ng-show="collapse!==order.orderId" class="tableAlignMiddle"><input type="button" class="form-control btn-default"
+                                                    ng-click="editOrder(order)" value="Edit"></td>
+                <td ng-show="collapse!==order.orderId" class="tableAlignMiddle">
                     <div class="glyphRemove">
                         <span class="glyphicon glyphicon-remove"
                             aria-hidden="true"
@@ -25,6 +25,20 @@
                         </span>
                     </div>
                 </td>
+
+                <td ng-show="collapse===order.orderId"><input type="text" class="form-control" placeholder="Date" ng-model="editedOrder.date" ></td>
+                <td ng-show="collapse===order.orderId"><input type="text" class="form-control" placeholder="Amount" ng-model="editedOrder.amount" >
+                </td>
+                <td ng-show="collapse===order.orderId"><select name="singleSelect" class="form-control selectWidth" ng-model="editedOrder.status">
+                    <option value="completed">completed</option>
+                    <option value="in progress">in progress</option>
+                    <option value="cancelled">cancelled</option>
+                </select>
+                </td>
+                <td ng-show="collapse===order.orderId" colspan="2" class="tableAlignMiddle"><input type="button" class="form-control btn-default"
+                                                    ng-click="saveEditedChanges(order)" value="Save Changes"></td>
+
+
             </tr>
             <tr>
                 <td><input type="text" class="form-control" placeholder="Date" ng-model="newOrder.date" required></td>

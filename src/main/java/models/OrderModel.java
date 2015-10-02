@@ -12,6 +12,7 @@ public class OrderModel {
     public final static String DATE="date";
     public final static String AMOUNT="amount";
     public final static String VIN="vin";
+    public final static String ORDERID="orderId";
 
     private String status;
     private String date;

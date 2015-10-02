@@ -220,6 +220,22 @@ public class dbManager {
         }
     }
 
+    public void editOrder(OrderModel order) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE ORDERS SET  DATE=?, AMOUNT=?, STATUS=?, VIN=? WHERE ORDER_ID=?");
+            preparedStatement.setString(1, order.getDate());
+            preparedStatement.setInt(2, order.getAmount());
+            preparedStatement.setString(3, order.getStatus());
+            preparedStatement.setString(4, order.getVin());
+            preparedStatement.setInt(5, order.getOrderId());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+    }
+
+
     public void deleteCar(String vin) throws SQLException {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM CARS WHERE VIN=?");

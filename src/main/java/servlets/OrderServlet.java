@@ -72,4 +72,18 @@ public class OrderServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_CONFLICT);
         }
     }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String json = ServletUtil.getMessageBody(request);
+            userDao.editOrder(json);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
