@@ -105,26 +105,34 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
     };
 
     $scope.openOrdersModal = function (car) {
-        var modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'resources/userpaige/ordersModal.html',
-            controller: 'orderModalController',
-            windowClass: 'createUserModalWindow',
-            size: 'md',
-            resolve: {
-                currentModalData: function () {
-                    return angular.copy(car)
+        userPageHttpService.getCarOrders(car.vin).then(function(data, status, headers, config){
+            console.log(data.data.orders);
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'resources/userpaige/ordersModal.html',
+                controller: 'orderModalController',
+                windowClass: 'createUserModalWindow',
+                size: 'md',
+                resolve: {
+                    currentModalData: function () {
+                        return {
+                            orders:data.data.orders,
+                            vin:car.vin
+                        }
+                    }
                 }
-            }
-        });
-        modalInstance.result.then(function () {
-            userPageHttpService.getUser($scope.user.id).then(function (data, status, headers, config) {
-
-            }, function (error) {
-                console.error(error)
             });
-        }, function (error) {
-            console.error(error);
+            modalInstance.result.then(function () {
+                userPageHttpService.getUser($scope.user.id).then(function (data, status, headers, config) {
+
+                }, function (error) {
+                    console.error(error)
+                });
+            }, function (error) {
+                console.error(error);
+            });
+        }, function( error ){
+            console.log(error)
         });
     };
 

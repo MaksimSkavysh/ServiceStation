@@ -1,43 +1,46 @@
-<div >
-    <form name="createNewCar" role="form" ng-submit="addNewCar()">
+
+    <form name="createNewCar" role="form" ng-submit="addNewOrder()">
         <table class="table ">
             <thead>
             <tr class="">
                 <th>Date</th>
-                <th>Ammount</th>
+                <th>Amount</th>
                 <th>Status</th>
                 <th>Action</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr class="tableHover" ng-repeat="car in cars track by $index">
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.make}}</td>
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.model}}</td>
-                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{car.year}}</td>
+            <tr class="tableHover" ng-repeat="order in orders track by $index">
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.date}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.amount}}</td>
+                <td class="tableAlignMiddle" ng-click="openOrdersModal(car)">{{order.status}}</td>
                 <td class="tableAlignMiddle"><input type="button" class="form-control btn-default"
                                                     ng-click="editCar(car)" value="Edit"></td>
                 <td class="tableAlignMiddle">
-                    <div class="glyphRemove"><span
-                            class="glyphicon glyphicon-remove"
+                    <div class="glyphRemove">
+                        <span class="glyphicon glyphicon-remove"
                             aria-hidden="true"
-                            ng-click="deleteCar(car)"></span></div>
+                            ng-click="deleteCar(car)">
+                        </span>
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td><input type="text" class="form-control" placeholder="Date" ng-model="car.make" required></td>
-                <td><input type="text" class="form-control" placeholder="Amount" ng-model="car.model" required>
+                <td><input type="text" class="form-control" placeholder="Date" ng-model="newOrder.date" required></td>
+                <td><input type="number" class="form-control" placeholder="Amount" ng-model="newOrder.amount" required>
                 </td>
-                <td><input type="text" class="form-control" placeholder="Status" ng-model="car.year" required></td>
+                <td><select name="singleSelect" class="form-control selectWidth" ng-model="newOrder.status">
+                    <option value="completed">completed</option>
+                    <option value="in progress">in progress</option>
+                    <option value="cancelled">cancelled</option>
+                    </select>
+                </td>
                 <td colspan="2"><input type="submit" class="form-control btn-default" value="Add order"></td>
               </tr>
             </tbody>
         </table>
     </form>
-</div>
-
 <div class="createUserModalInputEnd row">
-    <div >
         <input type="button" value="Close modal" ng-click="cancelModal()" class="btn btn-danger confirmAcceptButton">
-    </div>
 </div>

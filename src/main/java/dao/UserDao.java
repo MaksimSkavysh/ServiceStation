@@ -2,9 +2,11 @@ package dao;
 
 import models.CarModel;
 import models.ClientCardModel;
+import models.OrderModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDao {
@@ -23,5 +25,7 @@ public interface UserDao {
     ClientCardModel getUser(String id);
 
     List<CarModel> getUserCars(String userId);
+
+    List<OrderModel> getCarOrders(String vin) throws SQLException;
 
 }

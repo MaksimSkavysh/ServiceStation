@@ -2,6 +2,7 @@ package db;
 
 import models.CarModel;
 import models.ClientCardModel;
+import models.OrderModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,10 +23,16 @@ public class dbManager {
     private static final String EMAIL = "EMAIL";
     private static final String BIRTHDAY = "BIRTHDAY";
     private static final String ADDRESS = "ADDRESS";
+
     private static final String MAKE = "MAKE";
     private static final String MODEL = "MODEL";
     private static final String YEAR = "YEAR";
     private static final String VIN = "VIN";
+
+    private static final String DATE = "DATE";
+    private static final String AMOUNT = "AMOUNT";
+    private static final String STATUS = "STATUS";
+    private static final String ORDERID = "ORDER_ID";
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -301,4 +308,27 @@ public class dbManager {
         }
         return cars;
     }
+
+    public List<OrderModel> getCarOrders(String vin) throws SQLException {
+        List<OrderModel> orders=new ArrayList<>();
+        Connection connection = dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ORDERS WHERE VIN=?;");
+        preparedStatement.setString(1, vin);
+        ResultSet userResultSet=preparedStatement.executeQuery();
+        OrderModel order;
+        while(userResultSet.next()){
+            order=new OrderModel();
+            order.setOrderId(userResultSet.getInt(ORDERID));
+            order.setVin(userResultSet.getString(VIN));
+            order.setDate(userResultSet.getString(DATE));
+            order.setAmount(userResultSet.getInt(AMOUNT));
+            order.setStatus(userResultSet.getString(STATUS));
+            orders.add(order);
+        }
+        preparedStatement.close();
+        connection.close();
+        return orders;
+    }
+
+
 }

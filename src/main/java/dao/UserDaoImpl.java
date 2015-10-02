@@ -3,10 +3,12 @@ package dao;
 import db.dbManager;
 import models.CarModel;
 import models.ClientCardModel;
+import models.OrderModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,8 +108,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<CarModel> getUserCars(String userId) {
-        List<CarModel> cars=null;
         dbManager db=new dbManager();
         return db.getUserCars(userId);
+    }
+
+    @Override
+    public List<OrderModel> getCarOrders(String vin) throws SQLException {
+        dbManager db=new dbManager();
+        return db.getCarOrders(vin);
     }
 }

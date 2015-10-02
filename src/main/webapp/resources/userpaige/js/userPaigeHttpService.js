@@ -12,6 +12,10 @@ angular.module('userPageModule').factory('userPageHttpService', ['$http', functi
         return $http.get('rest/Cars?id=' + id);
     };
 
+    services.getCarOrders = function (vin) {
+        return $http.get('rest/orders?vin=' + vin);
+    };
+
     services.addNewCar = function (newCar) {
         return $http.post('rest/Cars', newCar)
     };

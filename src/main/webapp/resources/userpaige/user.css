@@ -31,6 +31,11 @@
     float: right;
 }
 
+.selectWidth{
+    min-width: 130px;
+}
+
+
 /*#bs-example-navbar-collapse-1{*/
     /*padding-left: 8%;*/
 /*}*/
