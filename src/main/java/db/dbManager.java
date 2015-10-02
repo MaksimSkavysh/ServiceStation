@@ -154,6 +154,35 @@ public class dbManager {
         }
     }
 
+    public void editCar(CarModel car,String oldVin){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE CARS SET VIN=?, MAKE=?, MODEL=?, YEAR=?, USER_ID=? WHERE VIN=?");
+            preparedStatement.setString(1, car.getVin());
+            preparedStatement.setString(2, car.getMake());
+            preparedStatement.setString(3, car.getModel());
+            preparedStatement.setInt(4, car.getYear());
+            preparedStatement.setInt(5, car.getUserID());
+            preparedStatement.setString(6, oldVin);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public List<ClientCardModel> getUsersByFIO(String firstName, String lastName){
         List<ClientCardModel> users=new ArrayList<>();
         //SELECT *  FROM service_station.users WHERE (FIRSTNAME ="vasya") AND (LASTNAME ="petrov") ;

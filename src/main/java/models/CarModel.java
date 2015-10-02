@@ -8,6 +8,7 @@ public class CarModel {
     public final static String MODEL="model";
     public final static String YEAR="year";
     public final static String VIN="vin";
+    public final static String OLDVIN="oldVin";
     public final static String USERID="userId";
 
     private String make;

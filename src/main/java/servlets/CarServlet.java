@@ -6,6 +6,7 @@ import db.dbManager;
 import models.CarModel;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,6 +53,12 @@ public class CarServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        try {
+            String json = ServletUtil.getMessageBody(request);
+            userDao.editCar(json);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 }

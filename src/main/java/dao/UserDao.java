@@ -12,6 +12,8 @@ public interface UserDao {
 
     void editUser(String jsonStr) throws ParseException;
 
+    void editCar(String jsonStr) throws ParseException;
+
     ClientCardModel jsonToUser(String jsonStr);
 
     CarModel jsonToCar(String jsonStr);

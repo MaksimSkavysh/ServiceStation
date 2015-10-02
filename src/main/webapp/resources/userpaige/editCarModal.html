@@ -1,0 +1,23 @@
+<h2 class="text-center reportsTitle">Please enter data</h2>
+<form ng-submit = "saveCarChanges()">
+    <div class="createUserModalInput">
+        <label class="control-label ">Make: </label>
+        <input type="text" class="form-control" ng-model="data.make" required>
+    </div>
+    <div class="createUserModalInput">
+        <label class="control-label ">Model: </label>
+        <input type="text" class="form-control" ng-model="data.model" required>
+    </div>
+    <div class="createUserModalInput">
+        <label class="control-label ">Year: </label>
+        <input type="text" class="form-control" ng-model="data.year" required>
+    </div>
+    <div class="createUserModalInput">
+        <label class="control-label ">VIN: </label>
+        <input type="text" class="form-control" ng-model="data.vin" required>
+    </div>
+    <div class="createUserModalInputEnd">
+        <button type="submit" class="btn btn-primary ">Save changes</button>
+        <input type="button" value="Cancel" ng-click="cancelModal()" class="btn btn-danger ">
+    </div>
+</form>

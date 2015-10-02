@@ -20,5 +20,9 @@ angular.module('userPageModule').factory('userPageHttpService',['$http',function
         return $http.put('rest/userPage',user);
     };
 
+    services.saveEditedCar=function(car){
+        return $http.put('rest/Cars',car);
+    };
+
     return services;
 }]);

@@ -39,6 +39,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void editCar(String jsonStr) throws ParseException {
+        dbManager db=new dbManager();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonStr.trim());
+        CarModel car=new CarModel();
+        car.setModel((String) json.get(CarModel.MODEL));
+        car.setMake((String) json.get(CarModel.MAKE));
+        car.setVin((String) json.get(CarModel.VIN));
+        car.setYear(Integer.parseInt((String) json.get(CarModel.YEAR)));
+        car.setUserID(Integer.parseInt((String)json.get(CarModel.USERID)));
+        String oldVin=((String) json.get(CarModel.OLDVIN));
+        db.editCar(car,oldVin);
+    }
+
+    @Override
      public List<ClientCardModel> getUsers(String firstName, String lastName) {
         dbManager db=new dbManager();
         List<ClientCardModel> users=db.getUsersByFIO(firstName, lastName);
