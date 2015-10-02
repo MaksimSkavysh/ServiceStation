@@ -16,6 +16,19 @@ userPageModule.controller('orderModalController', ['$scope', '$modalInstance', '
 
     $scope.addNewOrder=function(){
         $scope.newOrder.vin=$scope.vin;
+        userPageHttpService.addNewOrder($scope.newOrder).then(function(){
+            userPageHttpService.getCarOrders($scope.vin).then(function(data, status, headers, config){
+                $scope.orders=data.data.orders;
+                $scope.newOrder.date= '';
+                $scope.newOrder.amount= '';
+                $scope.newOrder.vin= '';
+            }, function( error ){
+                console.log(error)
+            });
+
+        },function(error){
+            console.error(error);
+        });
         console.log($scope.newOrder);
     };
 

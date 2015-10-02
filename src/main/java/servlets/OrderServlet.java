@@ -3,7 +3,9 @@ package servlets;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import db.dbManager;
+import models.OrderModel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +44,21 @@ public class OrderServlet extends HttpServlet {
         out.flush();
         } catch (SQLException e) {
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String json = ServletUtil.getMessageBody(request);
+            userDao.addNewOrder(json);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 

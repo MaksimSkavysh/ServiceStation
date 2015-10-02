@@ -45,7 +45,7 @@ public class dbManager {
         return connection;
     }
 
-    private int getID(){
+    private int getUserID(){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -72,13 +72,43 @@ public class dbManager {
         }
     }
 
+
+    private int getOrderID() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        connection = dbManager.getConnection();
+        preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM ORDERS");
+        ResultSet resultSet=preparedStatement.executeQuery();
+        resultSet.next();
+        int count=resultSet.getInt(1);
+        preparedStatement.close();
+        connection.close();
+        return count+1;
+    }
+
+    public void addOrder(OrderModel order) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO ORDERS (ORDER_ID, DATE, AMOUNT, STATUS, VIN) VALUES (?,?,?,?,?)");
+            preparedStatement.setInt(1, getOrderID());
+            preparedStatement.setString(2, order.getDate());
+            preparedStatement.setInt(3, order.getAmount());
+            preparedStatement.setString(4, order.getStatus());
+            preparedStatement.setString(5, order.getVin());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+    }
+
+
     public void addUser(ClientCardModel user) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO USERS (USER_ID, FIRSTNAME, LASTNAME, PHONE, ADDRESS, EMAIL, BIRTHDAY) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, getID());
+            preparedStatement.setInt(1, getUserID());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getPhone());

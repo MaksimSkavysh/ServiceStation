@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by maksim on 30.09.2015.
@@ -104,6 +105,19 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void addNewOrder(String jsonStr) throws ParseException, SQLException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonStr.trim());
+        OrderModel order=new OrderModel();
+        order.setVin((String) json.get(OrderModel.VIN));
+        order.setDate((String) json.get(OrderModel.DATE));
+        order.setStatus((String) json.get(OrderModel.STATUS));
+        order.setAmount(Integer.parseInt((String) json.get(OrderModel.AMOUNT)));
+        dbManager db=new dbManager();
+        db.addOrder(order);
     }
 
     @Override

@@ -20,6 +20,8 @@ public interface UserDao {
 
     CarModel jsonToCar(String jsonStr);
 
+    void addNewOrder(String jsonStr) throws ParseException, SQLException;
+
     List<ClientCardModel> getUsers(String firstName,String lastName);
 
     ClientCardModel getUser(String id);

@@ -20,6 +20,10 @@ angular.module('userPageModule').factory('userPageHttpService', ['$http', functi
         return $http.post('rest/Cars', newCar)
     };
 
+    services.addNewOrder = function (order) {
+        return $http.post('rest/orders',order);
+    };
+
     services.saveEditedUser = function (user) {
         return $http.put('rest/userPage', user);
     };
