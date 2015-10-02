@@ -36,5 +36,9 @@ angular.module('userPageModule').factory('userPageHttpService', ['$http', functi
         return $http.delete('rest/Cars?vin=' + vin);
     };
 
+    services.deleteOrder = function (orderId) {
+        return $http.delete('rest/orders?id=' + orderId);
+    };
+
     return services;
 }]);

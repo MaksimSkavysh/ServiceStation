@@ -227,6 +227,14 @@ public class dbManager {
         preparedStatement.executeUpdate();
     }
 
+
+    public void deleteOrder(String id) throws SQLException {
+        Connection connection = dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ORDERS WHERE ORDER_ID=?");
+        preparedStatement.setString(1, id);
+        preparedStatement.executeUpdate();
+    }
+
     public List<ClientCardModel> getUsersByFIO(String firstName, String lastName){
         List<ClientCardModel> users=new ArrayList<>();
         //SELECT *  FROM service_station.users WHERE (FIRSTNAME ="vasya") AND (LASTNAME ="petrov") ;

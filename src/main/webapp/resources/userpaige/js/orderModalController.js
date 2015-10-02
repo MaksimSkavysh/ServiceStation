@@ -2,7 +2,7 @@
  * Created by maksim on 02.10.2015.
  */
 var userPageModule = angular.module('userPageModule');
-userPageModule.controller('orderModalController', ['$scope', '$modalInstance', 'currentModalData', 'userPageHttpService', function ($scope, $modalInstance, currentModalData, userPageHttpService) {
+userPageModule.controller('orderModalController', ['$scope', '$modalInstance', 'currentModalData', 'userPageHttpService','openConfirmModal', function ($scope, $modalInstance, currentModalData, userPageHttpService, openConfirmModal) {
 
     $scope.orders = currentModalData.orders;
     $scope.vin=currentModalData.vin;
@@ -30,6 +30,22 @@ userPageModule.controller('orderModalController', ['$scope', '$modalInstance', '
             console.error(error);
         });
         console.log($scope.newOrder);
+    };
+
+    $scope.deleteOrder= function(order){
+        openConfirmModal("Delete order?").then(function () {
+            userPageHttpService.deleteOrder(order.orderId).then(function () {
+                userPageHttpService.getCarOrders($scope.vin).then(function (data, status, headers, config) {
+                    $scope.orders = data.data.orders;
+                }, function (error) {
+                    console.error(error);
+                });
+            }, function (error) {
+                console.error(error);
+            });
+        }, function (error) {
+            console.log(error);
+        });
     };
 
     $scope.cancelModal = function () {
