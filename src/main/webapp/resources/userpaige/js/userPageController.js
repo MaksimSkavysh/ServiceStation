@@ -108,9 +108,9 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'resources/userpaige/ordersModal.html',
-            controller: 'userPageModalController',
+            controller: 'orderModalController',
             windowClass: 'createUserModalWindow',
-            size: 'lg',
+            size: 'md',
             resolve: {
                 currentModalData: function () {
                     return angular.copy(car)
