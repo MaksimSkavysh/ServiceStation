@@ -5,7 +5,7 @@
 //    //getUserInfo();
 //}]);
 var userPageModule = angular.module('userPageModule');
-userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService', function ($scope, $location, getUserInfo,userPageHttpService) {
+userPageModule.controller('userPageController', ['$scope', '$location', 'getUserInfo','userPageHttpService','$modal', function ($scope, $location, getUserInfo,userPageHttpService,$modal) {
 
     $scope.newCar={
         make:'',
@@ -33,6 +33,29 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
 
     $scope.editCar=function(vin){
         console.log(vin);
+    };
+
+    $scope.editUser=function(){
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'resources/userpaige/editUserModal.html',
+            controller: 'userPageModalController',
+            windowClass:'createUserModalWindow',
+            resolve: {
+                currentUser: function () {
+                    return  angular.copy($scope.user)
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            userPageHttpService.getUser($scope.user.id).then(function (data,status,headers,config) {
+                $scope.user=data.data.user;
+            }, function(error){
+                console.error(error)
+            });
+        }, function (error) {
+            console.error(error);
+        });
     };
 
     getUserInfo().then(function (data,status,headers,config) {

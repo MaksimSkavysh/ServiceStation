@@ -124,6 +124,36 @@ public class dbManager {
         }
     }
 
+    public void editUser(ClientCardModel user){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dbManager.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE USERS SET FIRSTNAME=?, LASTNAME=?, PHONE=?, ADDRESS=?, EMAIL=?, BIRTHDAY=? WHERE USER_ID=?");
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(4, user.getAddress());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getBirthDate());
+            preparedStatement.setString(7, user.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public List<ClientCardModel> getUsersByFIO(String firstName, String lastName){
         List<ClientCardModel> users=new ArrayList<>();
         //SELECT *  FROM service_station.users WHERE (FIRSTNAME ="vasya") AND (LASTNAME ="petrov") ;

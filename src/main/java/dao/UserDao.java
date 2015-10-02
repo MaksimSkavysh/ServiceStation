@@ -3,13 +3,14 @@ package dao;
 import models.CarModel;
 import models.ClientCardModel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.util.List;
 
 public interface UserDao {
     void addUser(ClientCardModel user);
 
-    void editUser(ClientCardModel user);
+    void editUser(String jsonStr) throws ParseException;
 
     ClientCardModel jsonToUser(String jsonStr);
 

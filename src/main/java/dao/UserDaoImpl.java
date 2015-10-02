@@ -22,7 +22,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(ClientCardModel user) {
+    public void editUser(String jsonStr) throws ParseException {
+            dbManager db=new dbManager();
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(jsonStr.trim());
+            ClientCardModel user=new ClientCardModel();
+            user.setFirstName((String) json.get(ClientCardModel.FIRSTNAME));
+            user.setLastName((String) json.get(ClientCardModel.LASTNAME));
+            user.setAddress((String) json.get(ClientCardModel.ADDRESS));
+            user.setBirthDate((String) json.get(ClientCardModel.BIRTHDATE));
+            user.setEmail((String) json.get(ClientCardModel.EMAIL));
+            user.setPhone((String) json.get(ClientCardModel.PHONE));
+            user.setId((String) json.get(ClientCardModel.ID));
+            db.editUser(user);
 
     }
 

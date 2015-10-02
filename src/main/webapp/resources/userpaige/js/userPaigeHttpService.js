@@ -3,8 +3,9 @@
  */
 angular.module('userPageModule').factory('userPageHttpService',['$http',function($http){
     var services={};
+
     services.getUser=function(id){
-        return $http.get('rest/userPaige?id='+id);
+        return $http.get('rest/userPage?id='+id);
     };
 
     services.getUserCars=function(id){
@@ -13,6 +14,10 @@ angular.module('userPageModule').factory('userPageHttpService',['$http',function
 
     services.addNewCar=function(newCar){
       return $http.post('rest/Cars',newCar)
+    };
+
+    services.saveEditedUser=function(user){
+        return $http.put('rest/userPage',user);
     };
 
     return services;
