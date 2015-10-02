@@ -6,6 +6,7 @@ import models.OrderModel;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -45,7 +46,14 @@ public class dbManager {
         return connection;
     }
 
-    private int getUserID(){
+    private String getMiliseconds(){
+        Calendar c = Calendar.getInstance();
+        long timeInMillis = c.getTimeInMillis();
+        String str = Long.toString(timeInMillis);
+        return str;
+    }
+
+    private String getUserID(){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -54,10 +62,10 @@ public class dbManager {
         ResultSet userResultSet=preparedStatement.executeQuery();
         userResultSet.next();
         int count=userResultSet.getInt(1);
-        return count+1;
+        return String.valueOf(count+1);
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
+            return "0";
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -73,17 +81,17 @@ public class dbManager {
     }
 
 
-    private int getOrderID() throws SQLException {
+    private String getOrderID() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         connection = dbManager.getConnection();
         preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM ORDERS");
         ResultSet resultSet=preparedStatement.executeQuery();
         resultSet.next();
-        int count=resultSet.getInt(1);
+        String id=getMiliseconds()+resultSet.getString(1);
         preparedStatement.close();
         connection.close();
-        return count+1;
+        return id;
     }
 
     public void addOrder(OrderModel order) throws SQLException {
@@ -91,7 +99,7 @@ public class dbManager {
         PreparedStatement preparedStatement = null;
             connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO ORDERS (ORDER_ID, DATE, AMOUNT, STATUS, VIN) VALUES (?,?,?,?,?)");
-            preparedStatement.setInt(1, getOrderID());
+        preparedStatement.setString(1, getOrderID());
             preparedStatement.setString(2, order.getDate());
             preparedStatement.setInt(3, order.getAmount());
             preparedStatement.setString(4, order.getStatus());
@@ -108,7 +116,7 @@ public class dbManager {
         try {
             connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO USERS (USER_ID, FIRSTNAME, LASTNAME, PHONE, ADDRESS, EMAIL, BIRTHDAY) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, getUserID());
+            preparedStatement.setString(1, getUserID());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getPhone());
@@ -143,7 +151,7 @@ public class dbManager {
             preparedStatement.setString(2, car.getMake());
             preparedStatement.setString(3, car.getModel());
             preparedStatement.setInt(4, car.getYear());
-            preparedStatement.setInt(5, car.getUserID());
+            preparedStatement.setString(5, car.getUserID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -201,7 +209,7 @@ public class dbManager {
             preparedStatement.setString(2, car.getMake());
             preparedStatement.setString(3, car.getModel());
             preparedStatement.setInt(4, car.getYear());
-            preparedStatement.setInt(5, car.getUserID());
+            preparedStatement.setString(5, car.getUserID());
             preparedStatement.setString(6, oldVin);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -227,9 +235,9 @@ public class dbManager {
             preparedStatement = connection.prepareStatement("UPDATE ORDERS SET  DATE=?, AMOUNT=?, STATUS=?, VIN=? WHERE ORDER_ID=?");
             preparedStatement.setString(1, order.getDate());
             preparedStatement.setInt(2, order.getAmount());
-            preparedStatement.setString(3, order.getStatus());
+        preparedStatement.setString(3, order.getStatus());
             preparedStatement.setString(4, order.getVin());
-            preparedStatement.setInt(5, order.getOrderId());
+            preparedStatement.setString(5, order.getOrderId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
@@ -343,7 +351,7 @@ public class dbManager {
                 car.setModel(userResultSet.getString(MODEL));
                 car.setYear(userResultSet.getInt(YEAR));
                 car.setVin(userResultSet.getString(VIN));
-                car.setUserID(userResultSet.getInt(USER_ID));
+                car.setUserID(userResultSet.getString(USER_ID));
                 cars.add(car);
             }
         } catch (SQLException e) {
@@ -372,7 +380,7 @@ public class dbManager {
         OrderModel order;
         while(userResultSet.next()){
             order=new OrderModel();
-            order.setOrderId(userResultSet.getInt(ORDERID));
+            order.setOrderId(userResultSet.getString(ORDERID));
             order.setVin(userResultSet.getString(VIN));
             order.setDate(userResultSet.getString(DATE));
             order.setAmount(userResultSet.getInt(AMOUNT));

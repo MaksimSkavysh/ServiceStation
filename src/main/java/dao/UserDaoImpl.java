@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
         car.setMake((String) json.get(CarModel.MAKE));
         car.setVin((String) json.get(CarModel.VIN));
         car.setYear(Integer.parseInt((String) json.get(CarModel.YEAR)));
-        car.setUserID(Integer.parseInt((String) json.get(CarModel.USERID)));
+        car.setUserID((String) json.get(CarModel.USERID));
         String oldVin=((String) json.get(CarModel.OLDVIN));
         db.editCar(car, oldVin);
     }
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
         order.setVin((String) json.get(OrderModel.VIN));
         order.setStatus((String) json.get(OrderModel.STATUS));
         order.setAmount(Integer.parseInt((String) json.get(OrderModel.AMOUNT)));
-        order.setOrderId(Integer.parseInt((String) json.get(OrderModel.ORDERID)));
+        order.setOrderId((String) json.get(OrderModel.ORDERID));
         db.editOrder(order);
     }
 
@@ -113,7 +113,7 @@ public class UserDaoImpl implements UserDao {
             car.setModel((String) json.get(CarModel.MODEL));
             car.setMake((String) json.get(CarModel.MAKE));
             car.setYear(Integer.parseInt((String)json.get(CarModel.YEAR)));
-            car.setUserID(Integer.parseInt((String)json.get(CarModel.USERID)));
+            car.setUserID((String)json.get(CarModel.USERID));
             return car;
         } catch (ParseException e) {
             e.printStackTrace();

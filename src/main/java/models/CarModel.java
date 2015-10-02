@@ -15,7 +15,7 @@ public class CarModel {
     private String model;
     private int year;
     private String vin;
-    private int userID;
+    private String userID;
 
     public CarModel(){}
 
@@ -71,11 +71,11 @@ public class CarModel {
         }
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

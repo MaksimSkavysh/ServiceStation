@@ -7,7 +7,7 @@ var serviceApp = angular.module('serviceApp', ['ngRoute', 'ui.bootstrap', 'homeM
 serviceApp.controller('serviceMainController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     $scope.url = 'resources/homepage/home.html';
     $scope.goToSearch = function () {
-        $location.url('/home');
+        $location.url('/');
     }
 }]);
 

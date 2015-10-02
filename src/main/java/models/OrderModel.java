@@ -18,7 +18,7 @@ public class OrderModel {
     private String date;
     private int amount;
     private String vin;
-    private int orderId;
+    private String orderId;
 
     public String getStatus() {
         return status;
@@ -56,11 +56,11 @@ public class OrderModel {
         this.vin = vin;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
