@@ -50,12 +50,7 @@ public class CarModel {
     }
 
     public void setYear(int year) {
-        if(year>1800&&year<2100){
             this.year = year;
-        }
-        else{
-            throw new IllegalArgumentException("illegal car year");
-        }
     }
 
     public String getVin() {

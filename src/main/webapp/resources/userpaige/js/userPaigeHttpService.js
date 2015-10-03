@@ -21,7 +21,7 @@ angular.module('userPageModule').factory('userPageHttpService', ['$http', functi
     };
 
     services.addNewOrder = function (order) {
-        return $http.post('rest/orders',order);
+        return $http.post('rest/orders', order);
     };
 
     services.saveEditedUser = function (user) {

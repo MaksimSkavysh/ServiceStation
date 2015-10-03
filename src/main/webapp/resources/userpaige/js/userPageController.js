@@ -105,7 +105,7 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
     };
 
     $scope.openOrdersModal = function (car) {
-        userPageHttpService.getCarOrders(car.vin).then(function(data, status, headers, config){
+        userPageHttpService.getCarOrders(car.vin).then(function (data, status, headers, config) {
             console.log(data.data.orders);
             var modalInstance = $modal.open({
                 animation: true,
@@ -116,8 +116,8 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
                 resolve: {
                     currentModalData: function () {
                         return {
-                            orders:data.data.orders,
-                            vin:car.vin
+                            orders: data.data.orders,
+                            vin: car.vin
                         }
                     }
                 }
@@ -131,7 +131,7 @@ userPageModule.controller('userPageController', ['$scope', '$location', 'getUser
             }, function (error) {
                 console.error(error);
             });
-        }, function( error ){
+        }, function (error) {
             console.log(error)
         });
     };
